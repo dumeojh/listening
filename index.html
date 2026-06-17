@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>중1 영어 듣기평가 학습 가이드</title>
+    <title>중1 영어 듣기평가 제1회</title>
     <style>
-        /* 기본 스타일 초기화 및 폰트 설정 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,108 +13,205 @@
         }
 
         body {
-            font-family: 'Malgun Gothic', sans-serif;
-            background-color: #f5f7fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f0f2f5;
             color: #333;
-            line-height: 1.6;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
 
-        /* 상단 헤더 디자인 */
         header {
-            background-color: #4a90e2;
+            background: linear-gradient(135deg, #4f46e5, #3b82f6);
             color: white;
             text-align: center;
-            padding: 20px 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 25px 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 5px;
         }
 
         header p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.9;
         }
 
-        /* 메인 콘텐츠 컨테이너 (모바일 좌우 여백 지정) */
         main {
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 500px;
+            margin: 20px auto;
             padding: 0 15px;
         }
 
-        /* 회차별 카드 스타일 */
-        .card {
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: #10b981;
+            height: 100%;
+            width: 5%;
+            transition: width 0.3s;
+        }
+
+        .quiz-container {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .card h2 {
-            font-size: 1.15rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            border-left: 4px solid #4a90e2;
-            padding-left: 10px;
+        .q-number {
+            font-size: 0.9rem;
+            color: #4f46e5;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
-        /* 버튼 그룹 (모바일에서 누르기 편하게 배치) */
-        .btn-group {
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .audio-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
+
+        .audio-btn:active {
+            background: #3730a3;
+        }
+
+        .options-group {
             display: flex;
             flex-direction: column;
-            /* 모바일에서는 세로로 버튼 배치 */
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:active {
+            background: #e2e8f0;
+        }
+
+        .option-btn.selected {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .nav-group {
+            display: flex;
+            justify-content: space-between;
             gap: 10px;
         }
 
-        /* 공통 버튼 디자인 */
-        .btn {
-            display: block;
-            text-align: center;
-            text-decoration: none;
+        .nav-btn {
+            flex: 1;
             padding: 12px;
             border-radius: 8px;
+            border: none;
             font-weight: bold;
             font-size: 0.95rem;
-            transition: background 0.2s;
+            cursor: pointer;
         }
 
-        /* 버튼 종류별 색상 */
-        .btn-audio {
-            background-color: #2ecc71;
+        .btn-prev {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-next {
+            background: #334155;
             color: white;
         }
 
-        /* 음원 듣기: 초록색 */
-        .btn-pdf {
-            background-color: #34495e;
+        .btn-submit {
+            background: #10b981;
             color: white;
         }
 
-        /* 문제지: 어두운 회색 */
-
-        /* 태블릿 이상 넓은 화면(600px 이상)일 때 버튼을 가로로 배열 */
-        @media (min-width: 600px) {
-            .btn-group {
-                flex-direction: row;
-            }
-
-            .btn {
-                flex: 1;
-            }
+        .script-section {
+            margin-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 15px;
         }
 
-        /* 하단 푸터 */
-        footer {
+        .script-toggle {
+            font-size: 0.85rem;
+            color: #64748b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .script-box {
+            display: none;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            white-space: pre-line;
+            color: #475569;
+        }
+
+        /* 결과 화면 */
+        .result-container {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 30px 20px;
             text-align: center;
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #888;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #10b981;
+            margin: 15px 0;
+        }
+
+        .restart-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -123,35 +219,192 @@
 <body>
 
     <header>
-        <h1>🎧 중1 영어 듣기평가 가이드</h1>
-        <p>EBS 공식 자료를 활용하여 스마트하게 리스닝을 연습하세요.</p>
+        <h1>🎧 중1 영어 듣기평가 제1회</h1>
+        <p>문제를 듣고 알맞은 답을 골라보세요.</p>
     </header>
 
     <main>
-        <div class="card">
-            <h2>2026년 제1회 전국 영어듣기평가</h2>
-            <div class="btn-group">
-                <a href="https://www.ebsi.co.kr/ebs/pot/potg/EnglishListening03.ebs?targetCd=PM01" target="_blank"
-                    class="btn btn-audio">📢 EBS 공식 음원 들으러 가기</a>
-                <a href="https://www.ebsi.co.kr/ebs/pot/potg/EnglishListening03.ebs?targetCd=PM01" target="_blank"
-                    class="btn btn-pdf">📄 문제지/대본 확인하기</a>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- 퀴즈 화면 -->
+        <div class="quiz-container" id="quiz-page">
+            <div class="q-number" id="q-num">Question 1</div>
+            <div class="q-text" id="q-text">질문을 불러오는 중...</div>
+
+            <button class="audio-btn" onclick="playAudio()">
+                <span>📢</span> <span>오디오 듣기 (원어민 발음)</span>
+            </button>
+
+            <div class="options-group" id="options">
+                <!-- 보기 버튼 동적 생성 -->
+            </div>
+
+            <div class="nav-group">
+                <button class="nav-btn btn-prev" onclick="prevQuestion()" id="btn-prev">이전</button>
+                <button class="nav-btn btn-next" onclick="nextQuestion()" id="btn-next">다음</button>
+            </div>
+
+            <div class="script-section">
+                <button class="script-toggle" onclick="toggleScript()">🙈 대본/해설 보기</button>
+                <div class="script-box" id="script-box">대본 내용</div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>2025년 제2회 전국 영어듣기평가</h2>
-            <div class="btn-group">
-                <a href="https://mid.ebs.co.kr/english" target="_blank" class="btn btn-audio">📢 EBS 공식 음원 들으러 가기</a>
-                <a href="https://mid.ebs.co.kr/english" target="_blank" class="btn btn-pdf">📄 문제지/대본 확인하기</a>
-            </div>
+        <!-- 결과 화면 -->
+        <div class="result-container" id="result-page">
+            <h2>🎉 평가가 완료되었습니다!</h2>
+            <div class="score" id="final-score">0 / 20</div>
+            <p id="result-comment">수고하셨습니다!</p>
+            <button class="restart-btn" onclick="restartQuiz()">다시 풀기</button>
         </div>
     </main>
 
-    <footer>
-        <p>본 사이트는 학습 안내용 링크만 제공합니다.</p>
-        <p>모든 자료의 저작권은 EBS(한국교육방송공사)에 있습니다.</p>
-    </footer>
+    <script>
+        // 20문제 데이터셋 배열
+        const quizData = [
+            { question: "대화를 듣고, 남자가 구매할 물건을 고르세요.", script: "W: Welcome to our shop.\nM: Hello. I need a backpack for school.\nW: This black one is very popular.\nM: Perfect. I'll buy it.", speechText: "Welcome to our shop. Hello. I need a backpack for school. This black one is very popular. Perfect. I'll buy it.", options: ["A black backpack", "A blue backpack", "A school uniform", "A pencil case"], answer: 0, explanation: "남자는 학교용 가방을 찾고 있으며, 점원이 추천한 검은색 배낭(black one)을 구매하기로 결정했습니다." },
+            { question: "대화를 듣고, 학교 콘서트가 열리는 요일을 고르세요.", script: "M: When is the school concert?\nW: It's this Friday.\nM: Oh, today is Wednesday, so it's two days later.\nW: That's right.", speechText: "When is the school concert? It's this Friday. Oh, today is Wednesday, so it's two days later. That's right.", options: ["Friday", "Wednesday", "Monday", "Saturday"], answer: 0, explanation: "여학생이 학교 콘서트는 이번 주 금요일(this Friday)이라고 정확하게 말하고 있습니다." },
+            { question: "대화를 듣고, 남학생이 가려고 하는 장소를 고르세요.", script: "W: Where are you going, Jiho?\nM: I'm going to borrow some books.\nW: Oh, are you going to the library?\nM: Yes, I am.", speechText: "Where are you going, Jiho? I'm going to borrow some books. Oh, are you going to the library? Yes, I am.", options: ["The library", "The bookstore", "The school gym", "The park"], answer: 0, explanation: "책을 빌리러(borrow some books) 간다는 말에 여학생이 도서관(library)이냐고 묻자 남학생이 긍정했습니다." },
+            { question: "대화를 듣고, 여학생의 현재 기분으로 가장 알맞은 것을 고르세요.", script: "M: What's wrong, Sora?\nW: I lost my smart phone this morning.\nM: Oh, I'm sorry to hear that. You must be very sad.\nW: Yes, I am.", speechText: "What's wrong, Sora? I lost my smart phone this morning. Oh, I'm sorry to hear that. You must be very sad. Yes, I am.", options: ["Sad", "Happy", "Excited", "Angry"], answer: 0, explanation: "스마트폰을 분실해서 슬프겠다(sad)는 말에 동의하고 있습니다." },
+            { question: "대화를 듣고, 남학생의 여동생의 나이를 고르세요.", script: "W: How old is your sister, Mike?\nM: She is ten years old.\nW: Oh, she is three years younger than you.\nM: Yes, I am thirteen.", speechText: "How old is your sister, Mike? She is ten years old. Oh, she is three years younger than you. Yes, I am thirteen.", options: ["Ten years old", "Thirteen years old", "Three years old", "Seven years old"], answer: 0, explanation: "남학생이 여동생의 나이를 10살(ten years old)이라고 직접 언급했습니다." },
+            { question: "대화를 듣고, 여학생이 지금 하고 있는 행동을 고르세요.", script: "M: What are you doing, Minji?\nW: I'm baking cookies for my grandmother.\nM: Wow, they smell delicious!", speechText: "What are you doing, Minji? I'm baking cookies for my grandmother. Wow, they smell delicious!", options: ["Baking cookies", "Cleaning the kitchen", "Visiting her grandmother", "Eating lunch"], answer: 0, explanation: "할머니를 위해 쿠키를 굽고 있다(baking cookies)고 진행형으로 말했습니다." },
+            { question: "대화를 듣고, 남학생이 방과 후에 배드민턴을 치지 못하는 이유를 고르세요.", script: "W: Let's play badminton after school.\nM: I'd love to, but I have a cold today.\nW: Oh, then you should go home and rest.", speechText: "Let's play badminton after school. I'd love to, but I have a cold today. Oh, then you should go home and rest.", options: ["He has a cold", "He has to study", "He lost his racket", "He is going to a party"], answer: 0, explanation: "오늘 감기에 걸렸다(have a cold)며 제안을 거절하고 있습니다." },
+            { question: "대화를 듣고, 남자가 지불해야 할 총 금액을 고르세요.", script: "M: How much is this apple juice?\nW: It's two dollars.\nM: I'll take two bottles, please.\nW: Okay, that's four dollars.", speechText: "How much is this apple juice? It's two dollars. I'll take two bottles, please. Okay, that's four dollars.", options: ["Four dollars", "Two dollars", "Six dollars", "Eight dollars"], answer: 0, explanation: "2달러짜리 주스를 2병 샀으므로 총 4달러(four dollars)입니다." },
+            { question: "대화를 듣고, 두 사람이 오늘 저녁으로 먹을 음식을 고르세요.", script: "W: What do you want to eat for dinner?\nM: I like spaghetti, but I want to eat pizza today.\nW: Okay, let's order a cheese pizza.", speechText: "What do you want to eat for dinner? I like spaghetti, but I want to eat pizza today. Okay, let's order a cheese pizza.", options: ["Pizza", "Spaghetti", "Hamburger", "Salad"], answer: 0, explanation: "오늘은 피자가 먹고 싶다고 했고 여학생이 치즈 피자를 주문하자며 동의했습니다." },
+            { question: "대화를 듣고, 여학생의 장래 희망을 고르세요.", script: "M: What do you want to be in the future?\nW: I love animals, so I want to be a vet. How about you?\nM: I want to be a cook.", speechText: "What do you want to be in the future? I love animals, so I want to be a vet. How about you? I want to be a cook.", options: ["A veterinarian (Vet)", "A cook", "A teacher", "A zoo keeper"], answer: 0, explanation: "동물을 좋아해서 수의사(vet)가 되고 싶다고 명확히 밝혔습니다." },
+            { question: "대화를 듣고, 남학생이 가입하려는 동아리를 고르세요.", script: "W: Which school club do you want to join?\nM: I like taking pictures, so I will join the photography club.\nW: That sounds fun!", speechText: "Which school club do you want to join? I like taking pictures, so I will join the photography club. That sounds fun!", options: ["The photography club", "The soccer club", "The art club", "The music club"], answer: 0, explanation: "사진 찍는 걸 좋아해서 사진부(photography club)에 든다고 했습니다." },
+            { question: "대화를 듣고, 현재 정확한 시각을 고르세요.", script: "M: Mom, what time is it now?\nW: It's seven thirty. You're going to be late for school!\nM: Oh, my watch says seven fifteen. I must hurry.", speechText: "Mom, what time is it now? It's seven thirty. You're going to be late for school! Oh, my watch says seven fifteen. I must hurry.", options: ["Seven thirty", "Seven fifteen", "Eight o'clock", "Seven o'clock"], answer: 0, explanation: "엄마가 알려준 현재 실제 시각은 7시 30분(seven thirty)입니다." },
+            { question: "대화를 듣고, 남학생이 학교에 갈 때 주로 이용하는 교통수단을 고르세요.", script: "W: How do you go to school every day?\nM: I usually take the bus, but sometimes I walk.\nW: I see. I always take the subway.", speechText: "How do you go to school every day? I usually take the bus, but sometimes I walk. I see. I always take the subway.", options: ["The bus", "The subway", "A bicycle", "Walking"], answer: 0, explanation: "남학생은 주로 버스를 탄다(usually take the bus)고 답했습니다." },
+            { question: "대화를 듣고, 두 사람의 관계로 가장 알맞은 것을 고르세요.", script: "M: Good morning, Ms. Kim. Here is my English homework.\nW: Good morning, Junho. Let me see... Wow, you did a great job!\nM: Thank you.", speechText: "Good morning, Ms. Kim. Here is my English homework. Good morning, Junho. Let me see... Wow, you did a great job! Thank you.", options: ["Teacher and student", "Mother and son", "Friends", "Doctor and patient"], answer: 0, explanation: "영여 숙제(English homework)를 내고 검사하는 학교 사제지간의 대화입니다." },
+            { question: "대화를 듣고, 화장실(restroom)의 위치를 고르세요.", script: "W: Excuse me, where is the restroom?\nM: Go straight and turn right. It's next to the library.\nW: Thank you very much.", speechText: "Excuse me, where is the restroom? Go straight and turn right. It's next to the library. Thank you very much.", options: ["Next to the library", "Across from the library", "Near the entrance", "On the second floor"], answer: 0, explanation: "길 안내 마지막 부분에서 도서관 옆(next to the library)에 있다고 짚어주었습니다." },
+            { question: "대화를 듣고, 오늘 오후에 예상되는 날씨를 고르세요.", script: "M: It's very cloudy today.\nW: Yes, the news said it will snow this afternoon.\nM: Oh, then we can make a snowman later!", speechText: "It's very cloudy today. Yes, the news said it will snow this afternoon. Oh, then we can make a snowman later!", options: ["Snowy", "Sunny", "Rainy", "Windy"], answer: 0, explanation: "오후에 눈이 올 것(it will snow)이라는 예보와 눈사람 단어로 유추 가능합니다." },
+            { question: "대화를 듣고, 남학생이 이번 주말에 할 일을 고르세요.", script: "W: What are you going to do this weekend?\nM: I'm going to go camping with my family.\nW: That sounds wonderful! Have a good time.", speechText: "What are you going to do this weekend? I'm going to go camping with my family. That sounds wonderful! Have a good time.", options: ["Go camping", "Study for an exam", "Clean the house", "Watch a movie"], answer: 0, explanation: "가족들과 캠핑을 갈 예정(go camping)이라고 직접 표현했습니다." },
+            { question: "대화를 듣고, 여학생이 피곤해하는 이유를 고르세요.", script: "M: Why are you so tired today, Hana?\nW: I stayed up late last night to read an interesting book.\nM: You should go to bed early tonight.", speechText: "Why are you so tired today, Hana? I stayed up late last night to read an interesting book. You should go to bed early tonight.", options: ["She read a book late", "She exercised too much", "She didn't sleep well due to noise", "She had a lot of homework"], answer: 0, explanation: "어젯밤 재미있는 책을 보느라 늦게까지 깨어 있었다(stayed up late)고 했습니다." },
+            { question: "대화를 듣고, 여학생이 가리키는 소년(Tom)의 신체적 특징을 고르세요.", script: "W: Who is that boy over there?\nM: The one wearing glasses?\nW: No, the boy with long curly hair next to him.\nM: Oh, that's my cousin, Tom.", speechText: "Who is that boy over there? The one wearing glasses? No, the boy with long curly hair next to him. Oh, that's my cousin, Tom.", options: ["Having long curly hair", "Wearing glasses", "Wearing a red cap", "Having short straight hair"], answer: 0, explanation: "여학생은 긴 곱슬머리를 가진 소년(the boy with long curly hair)을 묻고 있습니다." },
+            { question: "다음 방송을 한 목적으로 가장 알맞은 것을 고르세요.", script: "M: Hello, students. This Sunday is Earth Day. Please turn off your lights for one hour at 8 p.m. Let's save our planet together. Thank you.", speechText: "Hello, students. This Sunday is Earth Day. Please turn off your lights for one hour at 8 p.m. Let's save our planet together. Thank you.", options: ["To encourage saving energy", "To announce a school holiday", "To invite students to a party", "To explain a science project"], answer: 0, explanation: "지구의 날 전등 끄기 실천(turn off your lights)을 독려하며 에너지 절약을 권장하고 있습니다." }
+        ];
 
+        let currentIdx = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+
+        function loadQuestion() {
+            // 대본 박스 닫기
+            document.getElementById('script-box').style.display = 'none';
+            document.getElementById('script-box').innerText = `[대본]\n${quizData[currentIdx].script}\n\n[해설]\n${quizData[currentIdx].explanation}`;
+
+            // 문제 텍스트 채우기
+            document.getElementById('q-num').innerText = `Question ${currentIdx + 1} / ${quizData.length}`;
+            document.getElementById('q-text').innerText = quizData[currentIdx].question;
+
+            // 보기 렌더링
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            quizData[currentIdx].options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                if (userAnswers[currentIdx] === index) btn.classList.add('selected');
+                btn.innerText = `${index + 1}. ${opt}`;
+                btn.onclick = () => selectOption(index);
+                optionsDiv.appendChild(btn);
+            });
+
+            // 네비게이션 버튼 세팅
+            document.getElementById('btn-prev').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
+
+            const nextBtn = document.getElementById('btn-next');
+            if (currentIdx === quizData.length - 1) {
+                nextBtn.innerText = '제출하기';
+                nextBtn.className = 'nav-btn btn-submit';
+            } else {
+                nextBtn.innerText = '다음';
+                nextBtn.className = 'nav-btn btn-next';
+            }
+
+            // 프로그레스 바 조절
+            const progressPercent = ((currentIdx + 1) / quizData.length) * 100;
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+        }
+
+        function playAudio() {
+            if (synth.speaking) {
+                synth.cancel(); // 이미 재생 중이면 멈춤
+            }
+
+            // 영어 원어민 음성 설정
+            currentUtterance = new SpeechSynthesisUtterance(quizData[currentIdx].speechText);
+            currentUtterance.lang = 'en-US';
+            currentUtterance.rate = 0.85; // 중1 수준에 맞게 재생 속도를 약간 느리게 설정 (기본값 1.0)
+
+            synth.speak(currentUtterance);
+        }
+
+        function selectOption(idx) {
+            userAnswers[currentIdx] = idx;
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, i) => {
+                if (i === idx) btn.classList.add('selected');
+                else btn.classList.remove('selected');
+            });
+        }
+
+        function nextQuestion() {
+            if (synth.speaking) synth.cancel(); // 화면 전환 시 오디오 정지
+
+            if (currentIdx === quizData.length - 1) {
+                showResult();
+            } else {
+                currentIdx++;
+                loadQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (synth.speaking) synth.cancel();
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function toggleScript() {
+            const box = document.getElementById('script-box');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function showResult() {
+            document.getElementById('quiz-page').style.display = 'none';
+            document.getElementById('result-page').style.display = 'block';
+
+            let score = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === quizData[idx].answer) score++;
+            });
+
+            document.getElementById('final-score').innerText = `${score} / ${quizData.length} 문항 만족`;
+
+            let comment = "참 잘했습니다! 오답 대본을 읽으며 복습해 보세요.";
+            if (score === quizData.length) comment = "🥇 만점입니다! 대단해요!";
+            else if (score < 10) comment = "조금 더 집중해서 다시 한번 들어볼까요? 화이팅!";
+
+            document.getElementById('result-comment').innerText = comment;
+        }
+
+        function restartQuiz() {
+            currentIdx = 0;
+            userAnswers.fill(null);
+            document.getElementById('quiz-page').style.display = 'block';
+            document.getElementById('result-page').style.display = 'none';
+            loadQuestion();
+        }
+
+        // 첫 시작 실행
+        loadQuestion();
+    </script>
 </body>
 
 </html>
